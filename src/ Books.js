@@ -3,14 +3,18 @@ import { fetchBooks } from "./booksService";
 
 function Books() {
     const [bookName, setBookName] = useState("");
+    const [books, setBooks] = useState([]);
+
 
     const handleChange = (event) => {
         setBookName(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault(); 
-        fetchBooks(bookName)
+        const books = await fetchBooks(bookName);
+        setBooks(books)
+        console.log('----Books: ', books)
     };
 
   return (
