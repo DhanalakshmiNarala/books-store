@@ -14,7 +14,7 @@ export const fetchBooks = async (bookName) => {
 
 export const parseBooksResponse = (jsonResp) => {
     return jsonResp.docs.map((book) => ({
-        bookTitle: book.title,
+        title: book.title,
         publishedYear: book.first_publish_year
     }));
 }

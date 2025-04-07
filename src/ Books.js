@@ -14,18 +14,35 @@ function Books() {
         event.preventDefault(); 
         const books = await fetchBooks(bookName);
         setBooks(books)
-        console.log('----Books: ', books)
     };
 
-  return (
+    const onBookSelect = (index) => {
+        setBooks(prevBooks => {
+            const updatedBooks = prevBooks.map((book, i) => 
+                i === index ? { ...book, selected: !book.selected } : book
+            );
+            return updatedBooks;
+        });
+    }
+
+return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={bookName}
-        onChange={handleChange}
-        placeholder="Enter something..."
-      />
-      <button type="submit">Submit</button>
+        <input
+            type="text"
+            value={bookName}
+            onChange={handleChange}
+            placeholder="Enter something..."
+        />
+        <button type="submit">Submit</button>
+
+        <ul>
+            {books.map((book, index) => (
+            <li key={index} onClick={() => onBookSelect(index)}>
+                <span>{book.title}</span>
+                {book.selected && <span>{book.publishedYear}</span>}
+            </li>
+        ))}
+      </ul>
     </form>)
 }
 
